@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.apache.activemq</groupId>
+  <artifactId>book</artifactId>
+  <name>amqinaction</name>
+  <version>1.0-SNAPSHOT</version>
+  <description/>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-all</artifactId>
+      <version>5.0.0</version>
+    </dependency>
+  </dependencies>
+</project>
