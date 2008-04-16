@@ -5,14 +5,19 @@
 	<artifactId>book</artifactId>
 	<name>amqinaction</name>
 	<version>1.0-SNAPSHOT</version>
-	<description />
+	<description/>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-all</artifactId>
 			<version>5.0.0</version>
 		</dependency>
-	</dependencies>
+	  <dependency>
+      <groupId>javax.transaction</groupId>
+      <artifactId>jta</artifactId>
+      <version>1.0.1B</version>
+    </dependency>
+  </dependencies>
 
 	<build>
 		<plugins>

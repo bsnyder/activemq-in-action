@@ -1,0 +1,2 @@
+SpringBroker demonstrates how to configure broker using Spring 1.0, XBean and Spring 2.0 configuration syntax.
+SpringClinet demonstrates how to use Spring JMS support to connect to the ActiveMQ broker 

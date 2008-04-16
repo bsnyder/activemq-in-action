@@ -1,0 +1,30 @@
+<beans>
+
+	<!-- a pooling based JMS provider -->
+  	<bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+    	<property name="connectionFactory">
+      		<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+        		<property name="brokerURL">
+          			<value>tcp://localhost:61616</value>
+        		</property>
+        		<property name="userName"><value>admin</value></property>
+        		<property name="password"><value>password</value></property>
+      		</bean>
+    	</property>
+  	</bean>
+  	
+  <bean id="destination" class="org.apache.activemq.command.ActiveMQTopic"
+    autowire="constructor">
+    <constructor-arg value="STOCKS.JAVA" />
+  </bean>  	
+
+	<bean id="portfolioListener" class="org.apache.activemq.book.ch2.portfolio.Listener">
+	</bean>
+
+	<bean id="javaConsumer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    	<property name="connectionFactory" ref="jmsFactory"/>
+    	<property name="destination" ref="destination" />
+    	<property name="messageListener" ref="portfolioListener" />
+	</bean>
+
+</beans>
