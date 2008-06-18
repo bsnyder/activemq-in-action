@@ -1,34 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.apache.activemq</groupId>
-	<artifactId>book</artifactId>
-	<name>amqinaction</name>
-	<version>1.0-SNAPSHOT</version>
-	<description/>
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
-			<version>5.0.0</version>
-		</dependency>
-	  <dependency>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.apache.activemq</groupId>
+  <artifactId>book</artifactId>
+  <name>amqinaction</name>
+  <version>1.0-SNAPSHOT</version>
+  <description/>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.activemq</groupId>
+      <artifactId>activemq-all</artifactId>
+      <version>5.1.0</version>
+    </dependency>
+    <dependency>
       <groupId>javax.transaction</groupId>
       <artifactId>jta</artifactId>
       <version>1.0.1B</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring</artifactId>
+      <version>2.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.xbean</groupId>
+      <artifactId>xbean-spring</artifactId>
+      <version>3.3</version>
+    </dependency>
   </dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<target>1.5</target>
-					<source>1.5</source>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <target>1.5</target>
+          <source>1.5</source>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <repository>
+      <id>java.net</id>
+      <name>java.net</name>
+      <url>http://download.java.net/maven/2</url>
+      <layout>default</layout>
+    </repository>
+  </repositories>
+
 </project>
