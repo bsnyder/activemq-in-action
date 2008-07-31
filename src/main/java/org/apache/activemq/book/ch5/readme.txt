@@ -1,11 +1,11 @@
-For JAAS authentication example start ActiveMQ with:
-${ACTIVEMQ_HOME}/bin/activemq -Djava.security.auth.login.config=src/main/resources/org/apache/activemq/book/ch5/login.config xbean:src/main/resources/org/apache/activemq/book/ch5/activemq-jaas.xml
-
 For Simple authentication plugin example start ActiveMQ with:
 ${ACTIVEMQ_HOME}/bin/activemq xbean:src/main/resources/org/apache/activemq/book/ch5/activemq-simple.xml
 
+For JAAS authentication example start ActiveMQ with:
+${ACTIVEMQ_HOME}/bin/activemq -Djava.security.auth.login.config=src/main/resources/org/apache/activemq/book/ch5/login.config xbean:src/main/resources/org/apache/activemq/book/ch5/activemq-jaas.xml
+
 For authorization example start ActiveMQ with:
-${ACTIVEMQ_HOME}/bin/activemq xbean:src/main/resources/org/apache/activemq/book/ch5/activemq-authorization.xml
+${ACTIVEMQ_HOME}/bin/activemq -Djava.security.auth.login.config=src/main/resources/org/apache/activemq/book/ch5/login.config xbean:src/main/resources/org/apache/activemq/book/ch5/activemq-authorization.xml
 
 For message authorization policy:
 
