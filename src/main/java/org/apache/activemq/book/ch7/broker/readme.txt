@@ -1,2 +1,0 @@
-- Broker.java demonstrates how to use BrokerService
-- Factory.java demonstrates how to instantiate broker from predefined xml configuration
