@@ -61,7 +61,7 @@ public class Publisher {
         publisher.close();
     }
 
-    protected void sendMessage(String[] stocks) throws JMSException {
+    public void sendMessage(String[] stocks) throws JMSException {
         int idx = 0;
         while (true) {
             idx = (int)Math.round(stocks.length * Math.random());

@@ -56,7 +56,7 @@ public class Publisher {
 
 	}
 	
-    protected void sendMessage() throws JMSException {
+    public void sendMessage() throws JMSException {
         int idx = 0;
         while (true) {
             idx = (int)Math.round(jobs.length * Math.random());
