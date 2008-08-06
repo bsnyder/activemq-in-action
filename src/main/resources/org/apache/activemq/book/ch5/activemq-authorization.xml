@@ -18,18 +18,7 @@
 				uri="tcp://localhost:61616" />
 		</transportConnectors>
 		<plugins>
-			<simpleAuthenticationPlugin>
-				<users>
-					<authenticationUser username="admin"
-						password="password" groups="admins,publishers,consumers" />
-					<authenticationUser username="publisher"
-						password="password" groups="publishers,consumers" />
-					<authenticationUser username="consumer"
-						password="password" groups="consumers" />
-					<authenticationUser username="guest"
-						password="password" groups="guests" />
-				</users>
-			</simpleAuthenticationPlugin>
+			<jaasAuthenticationPlugin configuration="activemq-domain" />
 
 			<authorizationPlugin>
 				<map>
@@ -42,8 +31,10 @@
 							<authorizationEntry topic="STOCKS.JAVA"
 								read="guests" />
 							<authorizationEntry
-								topic="ActiveMQ.Advisory.>" read="publishers" write="publishers"
-								admin="publishers" />
+								topic="ActiveMQ.Advisory.>"
+								read="admins,publishers,consumers,guests"
+								write="admins,publishers,consumers,guests"
+								admin="admins,publishers,consumers,guests" />
 						</authorizationEntries>
 					</authorizationMap>
 				</map>
