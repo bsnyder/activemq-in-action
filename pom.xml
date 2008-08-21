@@ -29,6 +29,11 @@
       <artifactId>xbean-spring</artifactId>
       <version>3.3</version>
     </dependency>
+    <dependency>
+      <groupId>commons-pool</groupId>
+      <artifactId>commons-pool</artifactId>
+      <version>1.4</version>
+    </dependency>
   </dependencies>
 
   <build>
