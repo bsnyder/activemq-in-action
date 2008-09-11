@@ -17,16 +17,16 @@ import org.apache.activemq.command.ActiveMQMapMessage;
 
 public class Publisher {
 	
-    private int MAX_DELTA_PERCENT = 1;
-    private Map<String, Double> LAST_PRICES = new Hashtable<String, Double>();
-    private static int count = 10;
-    private static int total;
+    protected int MAX_DELTA_PERCENT = 1;
+    protected Map<String, Double> LAST_PRICES = new Hashtable<String, Double>();
+    protected static int count = 10;
+    protected static int total;
     
-    private static String brokerURL = "tcp://localhost:61616";
-    private static transient ConnectionFactory factory;
-    private transient Connection connection;
-    private transient Session session;
-    private transient MessageProducer producer;
+    protected static String brokerURL = "tcp://localhost:61616";
+    protected static transient ConnectionFactory factory;
+    protected transient Connection connection;
+    protected transient Session session;
+    protected transient MessageProducer producer;
     
     public Publisher() throws JMSException {
     	factory = new ActiveMQConnectionFactory(brokerURL);
@@ -88,12 +88,13 @@ public class Publisher {
         double offer = price * 1.001;
 
         boolean up = (price > oldPrice);
-        MapMessage message = session.createMapMessage();
-        message.setString("stock", stock);
-        message.setDouble("price", price);
-        message.setDouble("offer", offer);
-        message.setBoolean("up", up);
-        return message;
+
+		MapMessage message = session.createMapMessage();
+		message.setString("stock", stock);
+		message.setDouble("price", price);
+		message.setDouble("offer", offer);
+		message.setBoolean("up", up);
+		return message;
     }
 
     protected double mutatePrice(double price) {
