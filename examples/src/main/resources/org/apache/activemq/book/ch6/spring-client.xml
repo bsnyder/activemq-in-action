@@ -1,0 +1,61 @@
+<beans>
+
+    <bean id="jmsFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL">
+        	<value>tcp://localhost:61616</value>
+        </property>
+        <property name="userName"><value>admin</value></property>
+        <property name="password"><value>password</value></property>
+    </bean>
+
+  	<bean id="pooledJmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+    	<property name="connectionFactory">
+			<ref local="jmsFactory"/>
+    	</property>
+  	</bean>
+  	
+  <bean id="javaDest" class="org.apache.activemq.command.ActiveMQTopic"
+    autowire="constructor">
+    <constructor-arg value="STOCKS.JAVA" />
+  </bean>  	
+  
+  <bean id="ionaDest" class="org.apache.activemq.command.ActiveMQTopic"
+    autowire="constructor">
+    <constructor-arg value="STOCKS.IONA" />
+  </bean>  	  
+
+  <bean id="portfolioListener" class="org.apache.activemq.book.ch2.portfolio.Listener">
+  </bean>
+
+  <bean id="javaConsumer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+   	<property name="connectionFactory" ref="jmsFactory"/>
+   	<property name="destination" ref="javaDest" />
+   	<property name="messageListener" ref="portfolioListener" />
+  </bean>
+  
+  <bean id="ionaConsumer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+   	<property name="connectionFactory" ref="jmsFactory"/>
+   	<property name="destination" ref="ionaDest" />
+   	<property name="messageListener" ref="portfolioListener" />
+  </bean>  
+	
+  <!-- Spring JMS Template -->
+  <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <property name="connectionFactory">
+      <ref local="pooledJmsFactory"/>
+    </property>
+  </bean>	
+  
+  <bean id="stockPublisher" class="org.apache.activemq.book.ch6.spring.SpringPublisher">
+  	<property name="template">
+  		<ref local="jmsTemplate"/>
+  	</property>
+  	<property name="destinations">
+  		<list>
+  			<ref local="javaDest"/>
+  			<ref local="ionaDest"/>
+  		</list>
+  	</property>
+  </bean>
+
+</beans>

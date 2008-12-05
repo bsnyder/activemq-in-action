@@ -1,0 +1,27 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:amq="http://activemq.org/config/1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://activemq.org/config/1.0 http://activemq.apache.org/schema/activemq-core.xsd">
+
+	<amq:broker
+		brokerName="localhost" dataDirectory="${activemq.base}/data">
+
+		<!-- The transport connectors ActiveMQ will listen to -->
+		<amq:transportConnectors>
+			<amq:transportConnector name="openwire"
+				uri="tcp://localhost:61616" />
+		</amq:transportConnectors>
+		<amq:plugins>
+			<amq:simpleAuthenticationPlugin>
+				<amq:users>
+					<amq:authenticationUser username="admin" password="password" groups="admins,publishers,consumers"/>
+					<amq:authenticationUser username="publisher" password="password" groups="publishers,consumers"/>
+					<amq:authenticationUser username="consumer" password="password" groups="consumers"/>
+					<amq:authenticationUser username="guest" password="password" groups="guests"/>
+				</amq:users>
+			</amq:simpleAuthenticationPlugin>
+		</amq:plugins>
+	</amq:broker>
+
+</beans>
