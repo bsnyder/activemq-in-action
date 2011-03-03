@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-import time
-import sys
-from elementtree.ElementTree import ElementTree, XML
+import time, sys
+from xml.etree.ElementTree import ElementTree, XML
+from book import printXml
 
 import stomp
 
@@ -11,14 +11,7 @@ class MyListener(object):
         print 'received an error %s' % message
 
     def on_message(self, headers, message):
-        xml = XML(message)
-
-        print "%s\t%.2f\t%.2f\t%s" % (
-            xml.get("name"), 
-            eval(xml.find("price").text), 
-            eval(xml.find("offer").text), 
-            "up" if xml.find("up").text == "true" else "down"
-            )
+        printXml(message)
 
 conn = stomp.Connection()
 conn.add_listener(MyListener())
