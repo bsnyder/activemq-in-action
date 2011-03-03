@@ -1,0 +1,33 @@
+%%
+ssn=123456789
+firstName=Fred
+surName=Garvin
+address1=24680 Lower Wacker Dr.
+address2=
+city=Chicago
+state=IL
+postalCode=60601
+phone=312.123.4567
+email=fred@example.com
+%%
+ssn=1112223333
+firstName=Irwin
+surName=Fletcher
+address1=66435 S. Pine Rd.
+address2=#8
+city=Eugene
+state=OR
+postalCode=97401
+phone=541-989-2012
+email=fletch@abc123.com
+%%
+ssn=987654321
+firstName=Jeffrey
+surName=Lebowski
+address1=712 E. Stripe Street
+address2=#4
+city=Los Angeles
+state=CA
+postalCode=90007
+phone=310 687 5432
+email=thedude@foo.com

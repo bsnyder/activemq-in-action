@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:amq="http://activemq.apache.org/schema/core"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.3.0.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" />  
+
+    <broker xmlns="http://activemq.apache.org/schema/core" 
+        brokerName="FooBroker" 
+        dataDirectory="/var/activemq/activemq-data"
+        useJmx="true"> 
+      
+        <managementContext>
+            <managementContext createConnector="false"/>
+        </managementContext>
+
+        <persistenceAdapter>
+            <kahaDB directory="/var/activemq/activemq-data/kahadb"/>
+        </persistenceAdapter>
+        
+        <destinationPolicy>
+            <policyMap>
+              <policyEntries>
+                <policyEntry topic=">">
+                  <pendingSubscriberPolicy>
+                    <vmCursor />
+                  </pendingSubscriberPolicy>
+                </policyEntry>
+                <policyEntry queue=">">
+                  <pendingQueuePolicy>
+                    <vmQueueCursor />
+                  </pendingQueuePolicy>
+                </policyEntry>
+              </policyEntries>
+            </policyMap>
+        </destinationPolicy> 
+ 
+        <systemUsage>
+            <systemUsage>
+                <memoryUsage>
+                    <memoryUsage limit="128 mb"/>
+                </memoryUsage>
+                <storeUsage>
+                    <storeUsage limit="1 gb"/>
+                </storeUsage>
+                <tempUsage>
+                    <tempUsage limit="100 mb"/>
+                </tempUsage>
+            </systemUsage>
+        </systemUsage>
+
+        <transportConnectors>
+            <transportConnector name="openwire" uri="tcp://0.0.0.0:61616"/>
+        </transportConnectors>
+
+    </broker>
+
+</beans>

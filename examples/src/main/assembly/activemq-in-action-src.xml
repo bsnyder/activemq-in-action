@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+  <id>src</id>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}</directory>
+      <outputDirectory>amq-in-action-example-src</outputDirectory>
+      <!--includes>
+        <include>**/*.c</include>
+        <include>**/*.cpp</include>
+        <include>**/*.cs</include>
+        <include>**/*.java</include>
+        <include>**/*.php</include>
+        <include>**/*.pl</include>
+        <include>**/*.py</include>
+        <include>**/*.xml</include>
+        <include>**/*</include>
+        <include>**/*</include>
+
+        <exclude>**/*.ks</exclude>
+        <exclude>**/*.ts</exclude>
+        <exclude>**/*.keystore</exclude>
+        <exclude>**/*.cert</exclude>
+      </includes-->
+      <excludes>
+        <exclude>**/*.graffle</exclude>
+        <exclude>**/*.tiff</exclude>
+        <exclude>**/*.jpeg</exclude>
+        <exclude>**/*.jpg</exclude>
+        <exclude>**/*.gif</exclude>
+        <exclude>**/*.png</exclude>
+        <exclude>**/*.jar</exclude>
+        <exclude>**/target/**</exclude>
+        <exclude>**/target*/**</exclude>
+        <exclude>**/build/**</exclude>
+        <exclude>**/eclipse-classes/**</exclude>
+        <exclude>**/.*</exclude>
+        <exclude>**/.*/**</exclude>
+        <exclude>**/surefire*</exclude>
+      </excludes>
+      <lineEnding>unix</lineEnding>
+    </fileSet>
+  </fileSets>
+</assembly>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/util 
+    http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+  <bean id="admins" class="org.apache.activemq.security.AuthenticationUser">
+    <constructor-arg index="0" value="admin" />
+    <constructor-arg index="1" value="password" />
+    <constructor-arg index="2" value="admins,publisher,consumers" />
+  </bean>
+
+  <bean id="publishers" class="org.apache.activemq.security.AuthenticationUser">
+    <constructor-arg index="0" value="publisher" />
+    <constructor-arg index="1" value="password" />
+    <constructor-arg index="2" value="publisher,consumers" />
+  </bean>
+
+  <bean id="consumers" class="org.apache.activemq.security.AuthenticationUser">
+    <constructor-arg index="0" value="consumer" />
+    <constructor-arg index="1" value="password" />
+    <constructor-arg index="2" value="consumers" />
+  </bean>
+
+  <bean id="guests" class="org.apache.activemq.security.AuthenticationUser">
+    <constructor-arg index="0" value="guest" />
+    <constructor-arg index="1" value="password" />
+    <constructor-arg index="2" value="guests" />
+  </bean>
+
+  <bean id="simpleAuthPlugin"
+    class="org.apache.activemq.security.SimpleAuthenticationPlugin">
+    <property name="users">
+      <util:list>
+        <ref bean="admins" />
+        <ref bean="publishers" />
+        <ref bean="consumers" />
+        <ref bean="guests" />
+      </util:list>
+    </property>
+  </bean>
+
+  <bean id="broker" class="org.apache.activemq.broker.BrokerService"
+    init-method="start" destroy-method="stop">
+    <property name="brokerName" value="myBroker" />
+    <property name="persistent" value="false" />
+    <property name="transportConnectorURIs">
+      <list>
+        <value>tcp://localhost:61616</value>
+      </list>
+    </property>
+    <property name="plugins">
+      <list>
+        <ref bean="simpleAuthPlugin"/>
+      </list>
+    </property>
+  </bean>
+
+</beans>

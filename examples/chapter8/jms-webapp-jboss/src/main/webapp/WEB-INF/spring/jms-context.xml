@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:jee="http://www.springframework.org/schema/jee"
+  xmlns:jms="http://www.springframework.org/schema/jms"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+    http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+  
+  <jee:jndi-lookup id="connectionFactory"
+    jndi-name="java:comp/env/jms/ConnectionFactory"
+    cache="true"
+    resource-ref="true"
+    lookup-on-startup="true"
+    expected-type="org.apache.activemq.ra.ActiveMQConnectionFactory"
+    proxy-interface="javax.jms.ConnectionFactory">
+  </jee:jndi-lookup>
+  
+  <jee:jndi-lookup id="fooQueue"
+    jndi-name="java:comp/env/jms/FooQueue"
+    cache="true"
+    resource-ref="true"
+    lookup-on-startup="true"
+    expected-type="org.apache.activemq.command.ActiveMQQueue"
+    proxy-interface="javax.jms.Queue">
+  </jee:jndi-lookup>
+ 
+  <bean id="singleConnectionFactory"
+    class="org.springframework.jms.connection.SingleConnectionFactory"
+    p:targetConnectionFactory-ref="connectionFactory" />
+ 
+  <bean id="jmsTemplate" 
+    class="org.springframework.jms.core.JmsTemplate"
+    p:connectionFactory-ref="singleConnectionFactory" 
+    p:defaultDestination-ref="fooQueue"/>
+  
+  <bean id="messageSenderService" 
+    class="org.apache.activemq.book.ch8.jms.service.JmsMessageSenderService" 
+    p:jmsTemplate-ref="jmsTemplate" />
+    
+  <bean id="jmsMessageDelegate" 
+    class="org.apache.activemq.book.ch8.jms.delegate.JmsMessageDelegate" />
+  
+  <bean id="myMessageListener"
+    class="org.springframework.jms.listener.adapter.MessageListenerAdapter" 
+    p:delegate-ref="jmsMessageDelegate" 
+    p:defaultListenerMethod="handleMessage">
+  </bean>
+  
+  <tx:jta-transaction-manager />
+  
+  <jms:listener-container
+    container-type="default" 
+    connection-factory="singleConnectionFactory"
+    acknowledge="auto"
+    transaction-manager="transactionManager">
+    <jms:listener destination="FOO.QUEUE" ref="myMessageListener" />
+  </jms:listener-container>
+  
+</beans>

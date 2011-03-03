@@ -1,0 +1,28 @@
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1">
+
+  <environment>
+    <moduleId>
+      <groupId>org.apache.activemq.book</groupId>
+      <artifactId>jms-webapp</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>war</type>
+    </moduleId>
+    <dependencies>
+    <!-- Depend upon the custom JMS resources group -->
+      <dependency>
+        <groupId>console.jms</groupId>
+        <artifactId>FooGroup</artifactId>
+        <version>1.0</version>
+        <type>car</type>
+      </dependency>
+    </dependencies>
+    <!-- Filter out the following items from the parent classloader -->
+    <hidden-classes>
+      <filter>org.springframework.</filter>
+      <filter>META-INF/spring</filter>
+    </hidden-classes>
+  </environment>
+  
+  <context-root>/jms-webapp</context-root>
+  
+</web-app>

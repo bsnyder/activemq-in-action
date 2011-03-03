@@ -1,0 +1,23 @@
+<Context reloadable="true">
+    <Resource auth="Container"
+              name="jms/ConnectionFactory"
+              type="org.apache.activemq.ActiveMQConnectionFactory"
+              description="JMS Connection Factory"
+              factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+              brokerURL="vm://localhost?brokerConfig=xbean:activemq.xml"
+              brokerName="MyActiveMQBroker"/>
+
+    <Resource auth="Container"
+              name="jms/FooQueue"
+              type="org.apache.activemq.command.ActiveMQQueue"
+              description="JMS queue"
+              factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+              physicalName="FOO.QUEUE"/>
+
+    <Resource auth="Container"
+              name="jms/FooTopic"
+              type="org.apache.activemq.command.ActiveMQTopic"
+              description="JMS topic"
+              factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+              physicalName="FOO.TOPIC"/>
+</Context>

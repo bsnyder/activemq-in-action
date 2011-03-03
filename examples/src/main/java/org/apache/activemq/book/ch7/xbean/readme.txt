@@ -1,0 +1,3 @@
+- Broker.java demonstrates how to start a broker using Java via the BrokerService class 
+- Factory.java demonstrates how to start a broker using Java via the BrokerFactory class
+- SpringConfig.java demonstrates how to start a broker using a pure Spring configuration via the BrokerService class

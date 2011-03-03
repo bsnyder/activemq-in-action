@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements. See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version
+    2.0 (the "License"); you may not use this file except in compliance
+    with the License. You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+    applicable law or agreed to in writing, software distributed under
+    the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES
+    OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and
+    limitations under the License.
+  -->
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+
+  <!-- Filter debug log messages to the console -->
+  <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{ABSOLUTE} | %5p | %m%n" />
+    </layout>
+  </appender>
+
+  <appender name="FILE" class="org.apache.log4j.FileAppender">
+    <param name="Threshold" value="DEBUG" />
+    <param name="File" value="target/test.log" />
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{ABSOLUTE} | %-5p | %-10t | %-24.24c{1} | %-30.30C %4L | %m%n" />
+    </layout>
+  </appender>
+
+  <logger name="org.apache">
+    <level value="WARN" />
+  </logger>
+  <logger name="org.springframework">
+    <level value="info" />
+  </logger>
+  <logger name="org.apache.activemq">
+    <level value="info" />
+  </logger>
+  <logger name="org.apache.activemq.book">
+    <level value="debug" />
+  </logger>
+
+  <root>
+    <priority value="debug" />
+    <appender-ref ref="CONSOLE" />
+    <appender-ref ref="FILE" />
+  </root>
+
+</log4j:configuration>
+
+<!--
+
+Log4J Configuration Quick Reference:
+====================================
+
+Priority order is DEBUG < INFO < WARN < ERROR < FATAL
+
+PatternLayout conversion characters:
+
+%c   Category of the logging event
+%C   Fully qualified class name of the caller
+%d   Date of the logging event  (example: %d{HH:mm:ss,SSS} )
+%F   File name where the logging request was issued (caution: extremely slow)
+%l   Location information of the caller (caution: extremely slow)
+%L   Line number from where the logging request was issued (caution: extremely slow)
+%m   Application-supplied message
+%M   Method name from where the logging request was issued (caution: extremely slow)
+%n   Line separator
+%p   Priority of the logging event
+%r   Number of milliseconds since the start of the application
+%t   Name of the thread that generated the logging event
+%x   Nested diagnostic context associated with the thread
+%%   A single percent sign
+
+Format modifiers examples:
+
+%20c     Left pad with spaces if category is less than 20 characters long
+%-20c    Right pad with spaces if category is less than 20 characters long
+%.30c    Truncate from the beginning if category is more than 30 chars long
+%20.30c  Left pad 20 chars + truncate from beginning if more than 30 chars
+%-20.30c Right pad 20 chars + truncate from beginning if more than 30 chars
+
+Examples:  "%r [%t] %-5p %c %x - %m\n"
+"%-6r [%15.15t] %-5p %30.30c %x - %m\n"
+
+-->

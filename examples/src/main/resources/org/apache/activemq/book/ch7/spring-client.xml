@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="jmsConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+    <property name="brokerURL" value="tcp://localhost:61616" />
+    <property name="userName" value="admin" />
+    <property name="password" value="password" />
+  </bean>
+
+  <bean id="pooledJmsConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory"
+    destroy-method="stop">
+    <property name="connectionFactory" ref="jmsConnectionFactory" />
+  </bean>
+
+  <bean id="cscoDest" class="org.apache.activemq.command.ActiveMQTopic">
+    <constructor-arg value="STOCKS.CSCO" />
+  </bean>
+
+  <bean id="orclDest" class="org.apache.activemq.command.ActiveMQTopic">
+    <constructor-arg value="STOCKS.ORCL" />
+  </bean>
+
+  <!-- The message listener -->
+  <bean id="portfolioListener" class="org.apache.activemq.book.ch3.portfolio.Listener">
+  </bean>
+
+  <!-- Spring DMLC -->
+  <bean id="cscoConsumer"
+    class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <property name="connectionFactory" ref="jmsConnectionFactory" />
+    <property name="destination" ref="cscoDest" />
+    <property name="messageListener" ref="portfolioListener" />
+  </bean>
+
+  <!-- Spring DMLC -->
+  <bean id="orclConsumer"
+    class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+    <property name="connectionFactory" ref="jmsConnectionFactory" />
+    <property name="destination" ref="orclDest" />
+    <property name="messageListener" ref="portfolioListener" />
+  </bean>
+
+  <!-- Spring JMS Template -->
+  <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+    <property name="connectionFactory" ref="pooledJmsConnectionFactory" />
+  </bean>
+
+  <bean id="stockPublisher" class="org.apache.activemq.book.ch7.spring.SpringPublisher">
+    <property name="template" ref="jmsTemplate" />
+    <property name="destinations">
+      <list>
+        <ref local="cscoDest" />
+        <ref local="orclDest" />
+      </list>
+    </property>
+  </bean>
+
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure.dtd">
+
+<Configure id='jms-webapp-context' class="org.eclipse.jetty.webapp.WebAppContext">
+
+  <New id="connectionFactory" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>
+      <Ref id='jms-webapp-context' />
+    </Arg>
+    <Arg>jms/ConnectionFactory</Arg>
+    <Arg>
+      <New class="org.apache.activemq.ActiveMQConnectionFactory">
+        <Arg>vm://localhost?brokerConfig=xbean:activemq.xml</Arg>
+      </New>
+    </Arg>
+  </New>
+
+  <New id="fooQueue" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>jms/FooQueue</Arg>
+    <Arg>
+      <New class="org.apache.activemq.command.ActiveMQQueue">
+        <Arg>FOO.QUEUE</Arg>
+      </New>
+    </Arg>
+  </New>
+
+  <New id="fooTopic" class="org.eclipse.jetty.plus.jndi.Resource">
+    <Arg>jms/FooTopic</Arg>
+    <Arg>
+      <New class="org.apache.activemq.command.ActiveMQTopic">
+        <Arg>FOO.TOPIC</Arg>
+      </New>
+    </Arg>
+  </New>
+
+</Configure>
