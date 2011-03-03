@@ -8,7 +8,7 @@
   <fileSets>
     <fileSet>
       <directory>${project.basedir}</directory>
-      <outputDirectory>amq-in-action-example-src</outputDirectory>
+      <outputDirectory>activemq-in-action-examples-src</outputDirectory>
       <!--includes>
         <include>**/*.c</include>
         <include>**/*.cpp</include>

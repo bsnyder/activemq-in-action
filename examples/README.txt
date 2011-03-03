@@ -54,6 +54,15 @@ local Maven repository (located in ~/.m2/repository/). The build artifacts can
 be found in the target directories of each project (examples/target/,
 examples/chapter8/target/). 
 
+If you want to do everything except run the tests, just use the
+maven.test.skip system property to disable the test execution like so: 
+
+  $ mvn -Dmaven.test.skip=true clean install
+
+Use of this propery this will execute every build phase except test execution.
+The build artifacts can be found in the target directories of each project
+(examples/target/, examples/chapter8/target/). 
+
 
 Asking Questions/Getting Help
 -----------------------------
